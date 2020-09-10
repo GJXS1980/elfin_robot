@@ -1,0 +1,281 @@
+elfin_arm_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  1000
+  action_monitor_rate: 10
+  
+elfin_effort_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  gains:
+     elfin_joint1: {p: 2000, d: 10, i: 50, i_clamp: 10}
+     elfin_joint2: {p: 2000, d: 10, i: 50, i_clamp: 10}
+     elfin_joint3: {p: 2000, d: 10, i: 50, i_clamp: 10}
+     elfin_joint4: {p: 2000, d: 10, i: 50, i_clamp: 10}
+     elfin_joint5: {p: 2000, d: 10, i: 50, i_clamp: 10}
+     elfin_joint6: {p: 2000, d: 10, i: 50, i_clamp: 10}
+  velocity_ff:
+     elfin_joint1: 1
+     elfin_joint2: 1
+     elfin_joint3: 1
+     elfin_joint4: 1
+     elfin_joint5: 1
+     elfin_joint6: 1
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  
+elfin_posvel_controller:
+  type: elfin_pos_vel_controllers/JointTrajectoryController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  1000
+  action_monitor_rate: 10
+  
+elfin_postrq_controller:
+  type: elfin_pos_trq_controllers/JointTrajectoryController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  velocity_ff:
+     elfin_joint1: 1
+     elfin_joint2: 1
+     elfin_joint3: 1
+     elfin_joint4: 1
+     elfin_joint5: 1
+     elfin_joint6: 1
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  25
+  action_monitor_rate: 10
+    
+elfin5_cw_controller:
+  type: position_controllers/Elfin5CartesianWrenchController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  wrist_center_position: [0, 0, -0.18]
+  hand_position: [0, 0, 0.09]
+  
+elfin_pid_controller:
+  type: elfin_pos_vel_trq_controllers/Elfin5PID_PT_ForceController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  wrist_center_position: [0, 0, -0.18]
+  top_position: [0, 0, 0.155]
+  max_space_linear_speed: [0.3, 0.3]
+  max_space_angular_speed: [0.3, 0.3]
+  space_linear_speed_limit_lower: 0.001
+  space_angular_speed_limit_lower: 0.001
+  ft_dof: [1, 0, 0, 0, 1, 1]
+  ft_frame_rpy: [0, -1.570796, 0]
+  gains:
+     force_x: {p: 0.00025, d: 0.000001, i: 0.0000005, i_clamp: 0.000001}
+     torque_y: {p: 0.15, d: 0.0001, i: 0.000025, i_clamp: 0.00005}
+     torque_z: {p: 0.15, d: 0.0001, i: 0.000025, i_clamp: 0.00005}
+  goal_force: [20.05, 0, 0]
+  goal_torque: [0, 0, 0]
+  af_force_threshold: [0, 0, 0.1]
+  af_torque_threshold: [0.01, 0.01, 0]
+  af_length: 1
+  lpf_f_a: 0.86269
+  lpf_df_a: 0.65337
+  lpf_t_a: 0.86269
+  lpf_dt_a: 0.65337
+
+elfin_pid_cw_controller:
+  type: position_controllers/Elfin5PIDCWController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  wrist_center_position: [0, 0, -0.18]
+  top_position: [0, 0, 0.09]
+  wrench_topic: /ft_sensor/ft_compensated_cw
+  ft_dof: [1, 1, 1, 1, 1, 1]
+  ft_frame_rpy: [0, -1.570796, 0]
+  gains:
+     force_x: {p: 0.0025, d: 0.000001, i: 0.000001, i_clamp: 0.000001, antiwindup: true}
+     force_y: {p: 0.0025, d: 0.000001, i: 0.000001, i_clamp: 0.000001, antiwindup: true}
+     force_z: {p: 0.0025, d: 0.000001, i: 0.000001, i_clamp: 0.000001, antiwindup: true}
+     torque_x: {p: 0.04, d: 0.0001, i: 0.000025, i_clamp: 0.00005, antiwindup: true}
+     torque_y: {p: 0.04, d: 0.0001, i: 0.000025, i_clamp: 0.00005, antiwindup: true}
+     torque_z: {p: 0.04, d: 0.0001, i: 0.000025, i_clamp: 0.00005, antiwindup: true}
+  goal_force: [0, 0, 0]
+  goal_torque: [0, 0, 0]
+  af_force_threshold: [0, 0, 0.1]
+  af_torque_threshold: [0.01, 0.01, 0]
+  af_length: 1
+  lpf_f_a: 0.86269
+  lpf_df_a: 0.65337
+  lpf_t_a: 0.86269
+  lpf_dt_a: 0.65337
+  
+elfin_insert_spiral_controller:
+  type: position_controllers/Elfin5InsertSpiralController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  wrist_center_position: [0, 0, -0.18]
+  top_position: [0, 0, 0.16]
+  max_space_linear_speed: [0.3, 0.3]
+  max_space_angular_speed: [0.3, 0.3]
+  space_linear_speed_limit_lower: 0.001
+  space_angular_speed_limit_lower: 0.001
+  ft_dof: [1, 0, 0, 0, 1, 1]
+  ft_frame_rpy: [0, -1.570796, 0]
+  gains:
+     force_x: {p: 0.0005, d: 0.000025, i: 0.00005, i_clamp: 0.0001}
+     torque_y: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 0.001}
+     torque_z: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 0.001}
+  goal_force: [15.05, 0, 0]
+  goal_torque: [0, 0, 0]
+  af_force_threshold: [0, 0, 0.1]
+  af_torque_threshold: [0.01, 0.01, 0]
+  af_length: 1
+  lpf_f_a: 0.86269
+  lpf_df_a: 0.65337
+  lpf_t_a: 0.86269
+  lpf_dt_a: 0.65337
+
+elfin_insert_rotation_controller:
+  type: position_controllers/Elfin5InsertRotationController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  wrist_center_position: [0, 0, -0.18]
+  top_position: [0, 0, 0.16]
+  max_space_linear_speed: [0.3, 0.3]
+  max_space_angular_speed: [0.3, 0.3]
+  space_linear_speed_limit_lower: 0.001
+  space_angular_speed_limit_lower: 0.001
+  ft_dof: [1, 0, 0, 0, 1, 1]
+  ft_frame_rpy: [0, -1.570796, 0]
+  gains:
+     force_x: {p: 0.0005, d: 0.000025, i: 0.00005, i_clamp: 0.0001}
+     torque_y: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 0.001}
+     torque_z: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 0.001}
+  goal_force: [15.05, 0, 0]
+  goal_torque: [0, 0, 0]
+  af_force_threshold: [0, 0, 0.1]
+  af_torque_threshold: [0.01, 0.01, 0]
+  af_length: 1
+  lpf_f_a: 0.86269
+  lpf_df_a: 0.65337
+  lpf_t_a: 0.86269
+  lpf_dt_a: 0.65337
+
+elfin_insert_line_controller:
+  type: position_controllers/Elfin5InsertLineController
+  joints:
+     - elfin_joint1
+     - elfin_joint2
+     - elfin_joint3
+     - elfin_joint4
+     - elfin_joint5
+     - elfin_joint6
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.1
+  stop_trajectory_duration: 0.05
+  state_publish_rate:  25
+  action_monitor_rate: 10
+  wrist_center_position: [0, 0, -0.18]
+  top_position: [0, 0, 0.16]
+  max_space_linear_speed: [0.3, 0.3]
+  max_space_angular_speed: [0.3, 0.3]
+  space_linear_speed_limit_lower: 0.001
+  space_angular_speed_limit_lower: 0.001
+  ft_dof: [1, 0, 0, 0, 1, 1]
+  ft_frame_rpy: [0, -1.570796, 0]
+  gains:
+     force_x: {p: 0.0005, d: 0.000025, i: 0.00005, i_clamp: 0.0001}
+     torque_y: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 0.001}
+     torque_z: {p: 0.1, d: 0.01, i: 0.01, i_clamp: 0.001}
+  goal_force: [15.05, 0, 0]
+  goal_torque: [0, 0, 0]
+  af_force_threshold: [0, 0, 0.1]
+  af_torque_threshold: [0.01, 0.01, 0]
+  af_length: 1
+  lpf_f_a: 0.86269
+  lpf_df_a: 0.65337
+  lpf_t_a: 0.86269
+  lpf_dt_a: 0.65337

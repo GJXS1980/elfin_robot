@@ -1,0 +1,7 @@
+<launch>
+	
+	<include file="$(find elfin_robot_bringup)/launch/elfin_ros_control_v2.launch" />
+
+	<!--include file="$(find elfin_basic_api)/launch/elfin_basic_api.launch" /-->
+
+</launch> 
